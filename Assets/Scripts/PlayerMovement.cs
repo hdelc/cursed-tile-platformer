@@ -119,9 +119,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpState == 1)
         {
-          // Debug.Log(tempJumpEnergy);
-          rb2d.position = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
-          // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
+          Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+          
+          LayerMask mask = LayerMask.GetMask("Walls");
+          RaycastHit2D raycast = Physics2D.Linecast(rb2d.position, newPosition, mask);
+          if (raycast.transform)
+          {
+            Debug.Log(newPosition.x);
+            newPosition = raycast.point;
+            float overlap = raycast.distance - (newPosition.y - rb2d.position.y) + 0.5f;
+            Debug.Log(overlap);
+            newPosition.y -= overlap;
+            tempJumpEnergy = 0;
+          }
+
           tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecrease, 0);
           if (tempJumpEnergy < 0.05)
           {
@@ -130,15 +141,7 @@ public class PlayerMovement : MonoBehaviour
           if (tempJumpEnergy > 0) {
             newVelocity.y = 0f;
           }
-
-          // Debug.Log("hello");
-          // Debug.Log(tempJumpEnergy);
-          // newVelocity.y += tempJumpEnergy / Time.fixedDeltaTime;
-          // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
-          // if (tempJumpEnergy < 0.005)
-          // {
-          //   tempJumpEnergy = 0;
-          // }
+          rb2d.position = newPosition;
         }
       } else {
         if (jumpState == 1)
