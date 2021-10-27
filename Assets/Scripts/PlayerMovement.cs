@@ -125,10 +125,10 @@ public class PlayerMovement : MonoBehaviour
           RaycastHit2D raycast = Physics2D.Linecast(rb2d.position, newPosition, mask);
           if (raycast.transform)
           {
-            Debug.Log(newPosition.x);
+            // Debug.Log(newPosition.x);
             newPosition = raycast.point;
             float overlap = raycast.distance - (newPosition.y - rb2d.position.y) + 0.5f;
-            Debug.Log(overlap);
+            // Debug.Log(overlap);
             newPosition.y -= overlap;
             tempJumpEnergy = 0;
           }
