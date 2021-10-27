@@ -117,29 +117,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpState == 1)
         {
-          Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
-          
-          LayerMask mask = LayerMask.GetMask("Walls");
-          RaycastHit2D raycast = Physics2D.Linecast(rb2d.position, newPosition, mask);
-          if (raycast.transform)
-          {
-            // Debug.Log(newPosition.x);
-            newPosition = raycast.point;
-            float overlap = raycast.distance - (newPosition.y - rb2d.position.y) + 0.5f;
-            // Debug.Log(overlap);
-            newPosition.y -= overlap;
-            tempJumpEnergy = 0;
-          }
+          //Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+
+          newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
 
           tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
           if (tempJumpEnergy < 0.05)
           {
             tempJumpEnergy = 0;
+            jumpState = 2;
           }
-          if (tempJumpEnergy > 0) {
+          /*if (tempJumpEnergy > 0) {
             newVelocity.y = 0f;
           }
-          rb2d.position = newPosition;
+          rb2d.position = newPosition;*/
         }
       } else {
         if (jumpState == 1)
@@ -162,6 +153,29 @@ public class PlayerMovement : MonoBehaviour
 
     // Debug.Log(newVelocity);
     rb2d.velocity = newVelocity;
+    CustomCollision();
+  }
+
+  private void CustomCollision()
+  {
+    LayerMask mask = LayerMask.GetMask("Walls");
+    Vector2 deltaPosition = rb2d.velocity * Time.fixedDeltaTime;
+    Vector2 positionCorrection = Vector2.zero;
+
+    //Ceiling collision
+    {
+      Vector2 boxcast_position = new Vector2(hitbox.transform.position.x, hitbox.transform.position.y + (hitbox.transform.lossyScale.y / 4));
+      Vector2 boxcast_size = new Vector2(hitbox.transform.lossyScale.x * 0.5f, hitbox.transform.lossyScale.y / 2);
+      RaycastHit2D boxcast = Physics2D.BoxCast(boxcast_position, boxcast_size, 0, Vector2.up, deltaPosition.y, mask);
+      if (boxcast.collider && rb2d.velocity.y > 0)
+      {
+        positionCorrection.y = boxcast.distance;
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+        jumpState = 2;
+      }
+    }
+
+    rb2d.position += positionCorrection;
   }
 
   private void RefreshJump()
