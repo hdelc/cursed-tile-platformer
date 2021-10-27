@@ -495,7 +495,7 @@ MonoBehaviour:
   jumpEnergy: 1.1
   jumpSpeed: 7
   jumpDecrease: 0.75
-  dashDuration: 5
+  dashDuration: 14
   dashSpeed: 15
   onGround: 0
   facingDirection: 1
