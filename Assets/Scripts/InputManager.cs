@@ -24,8 +24,8 @@ public class InputManager : MonoBehaviour
             return axis;
         }
     }
-    public InputBind Jump { get => Bindings[InputAction.JUMP]; }
-    public InputBind Dash { get => Bindings[InputAction.DASH]; }
+    public bool Jump { get => Bindings[InputAction.JUMP].Pressed; }
+    public bool Dash { get => Bindings[InputAction.DASH].Pressed; }
 
     public Dictionary<InputAction, InputBind> Bindings { get; private set; }
 

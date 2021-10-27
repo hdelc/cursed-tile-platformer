@@ -6,29 +6,30 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
-    private float runSpeed = 5f;
+    [SerializeField] private float runSpeed = 5f;
 
     public float HorizontalAcceleration { get => horizontalAcceleration; set => horizontalAcceleration = value; }
-    private float horizontalAcceleration = 20f;
+    [SerializeField] private float horizontalAcceleration = 20f;
 
     public float Gravity { get => gravity; set => gravity = value; }
-    private float gravity = -6f;
+    [SerializeField] float gravity = -6f;
     public float TerminalVelocity { get; set; }
-    private float terminalVelocity = -6f;
+    [SerializeField] float terminalVelocity = -6f;
 
-    public int JumpDuration { get; set; }
-    private int jumpDuration = 7;
+    [SerializeField] float jumpEnergy = 18f;
 
     public float JumpSpeed { get; set; }
-    private float jumpSpeed = 7f;
+    [SerializeField] float jumpSpeed = 0.1f;
+
+    [SerializeField] float jumpDecrease = 0.8f;
 
     public int DashDuration { get; set; }
-    private int dashDuration = 5;
+    [SerializeField] int dashDuration = 5;
 
     public float DashSpeed { get; set; }
-    private float dashSpeed = 15f;
+    [SerializeField] float dashSpeed = 15f;
 
-    private bool onGround = false;
+    [SerializeField] bool onGround = false;
 
     public PlayerMovementState MovementState { get; private set; }
 
@@ -42,21 +43,26 @@ public class PlayerMovement : MonoBehaviour
             if (value < 0) facingDirection = -1;
         }
     }
-    private int facingDirection = 1;
+    [SerializeField] int facingDirection = 1;
 
-    private Rigidbody2D rb2d;
-    private BoxCollider2D hitbox;
+    [SerializeField] Rigidbody2D rb2d;
+    [SerializeField] BoxCollider2D hitbox;
+    [SerializeField] EdgeCollider2D bottomEdgeCollider;
 
     #region tempInputBindSystem
-    private InputManager inputManager;
+    [SerializeField] InputManager inputManager;
     #endregion
+
+    private int jumpState = 0; // 0 - can jump, 1 - jump in progress, 2 - can't jump
+    private float tempJumpEnergy;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = this.GetComponent<Rigidbody2D>();
         hitbox = this.GetComponent<BoxCollider2D>();
-        inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
+        // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
+        tempJumpEnergy = jumpEnergy;
     }
 
     // Update is called once per frame
@@ -67,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(inputManager.HorizontalAxis);
+        // Debug.Log(inputManager.HorizontalAxis);
 
 
 
@@ -86,19 +92,61 @@ public class PlayerMovement : MonoBehaviour
         newVelocity.x = Mathf.Clamp(newVelocity.x, -RunSpeed, RunSpeed);
         newVelocity.y = Mathf.Max(terminalVelocity, newVelocity.y);
 
-        switch (MovementState)
-        {
-            case PlayerMovementState.JUMP:
-
-                break;
-
-            default:
-                break;
-        }
-
+        // Debug.Log("jump");
+        // Debug.Log(inputManager.Jump);
         
-        Debug.Log(newVelocity);
+        if (inputManager.Jump)
+        {
+          if (jumpState == 0) 
+          {
+            jumpState = 1;
+          }
+
+          if (jumpState == 1)
+          {
+            // Debug.Log(tempJumpEnergy);
+            rb2d.position = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+            // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
+            tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecrease, 0);
+            if (tempJumpEnergy < 0.05)
+            {
+              tempJumpEnergy = 0;
+            }
+            if (tempJumpEnergy > 0) {
+              newVelocity.y = 0f;
+            }
+
+            // Debug.Log("hello");
+            // Debug.Log(tempJumpEnergy);
+            // newVelocity.y += tempJumpEnergy / Time.fixedDeltaTime;
+            // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
+            // if (tempJumpEnergy < 0.005)
+            // {
+            //   tempJumpEnergy = 0;
+            // }
+          }
+        } else {
+          if (jumpState == 1)
+          {
+            if (tempJumpEnergy > 0) {
+              newVelocity.y = 2f;
+            }
+            jumpState = 2;
+          }
+        }
+        
+
+        // Debug.Log(newVelocity);
         rb2d.velocity = newVelocity;
+    }
+
+    private void RefreshJump()
+    {
+      if (inputManager.Jump) {
+        return;
+      }
+      tempJumpEnergy = jumpEnergy;
+      jumpState = 0;
     }
 
     private void UpdateOnGround()
@@ -134,6 +182,4 @@ public class BufferedAction
         ActionBind = binding;
         FrameBuffer = frameBuffer;
     }
-
-    public 
 }
