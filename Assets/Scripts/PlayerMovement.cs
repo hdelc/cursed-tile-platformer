@@ -18,14 +18,13 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] float jumpEnergy = 18f;
 
-  public float JumpSpeed { get; set; }
-  [SerializeField] float jumpSpeed = 0.1f;
-
   [SerializeField] float jumpDecrease = 0.8f;
 
   [SerializeField] int dashDuration = 5;
 
   [SerializeField] float dashSpeed = 15f;
+
+  [SerializeField] Vector2 dashColliderSize = new Vector2(0.8f, 0.8f);
 
   [SerializeField] bool onGround = false;
 
@@ -46,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
   private int dashState = 0;
   private int tempDashLength;
+  private Vector2 defaultColliderSize;
 
   // Start is called before the first frame update
   void Start()
@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
     tempJumpEnergy = jumpEnergy;
     tempDashLength = dashDuration;
+    defaultColliderSize = hitbox.size;
   }
 
   // Update is called once per frame
@@ -76,14 +77,13 @@ public class PlayerMovement : MonoBehaviour
     Vector2 newVelocity = new Vector2();
     if (dashState == 1)
     {
+      hitbox.size = dashColliderSize;
       newVelocity.y = 0;
       newVelocity.x = isFacingRight ? dashSpeed : -dashSpeed;
-      if (--tempDashLength > 0)
-      {
-
-      } else
+      if (--tempDashLength <= 0)
       {
         dashState = 2;
+        hitbox.size = defaultColliderSize;
       }
     } else
     {

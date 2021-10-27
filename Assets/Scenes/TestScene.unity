@@ -240,6 +240,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_SleepingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: inputManager
       value: 
@@ -385,10 +393,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TempBlock
       objectReference: {fileID: 0}
-    - target: {fileID: 665367439817647801, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 665367439817647802, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 665367439817647802, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 01d1310b501aa0323bc0d230fc8b41cd, type: 2}
     - target: {fileID: 665367439817647804, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
       propertyPath: m_RootOrder
       value: 3
