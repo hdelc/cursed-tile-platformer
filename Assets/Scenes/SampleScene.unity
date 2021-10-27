@@ -495,10 +495,10 @@ MonoBehaviour:
   jumpEnergy: 1.1
   jumpSpeed: 7
   jumpDecrease: 0.75
-  dashDuration: 14
-  dashSpeed: 15
+  dashDuration: 9
+  dashSpeed: 25
   onGround: 0
-  facingDirection: 1
+  isFacingRight: 1
   rb2d: {fileID: 219040083}
   hitbox: {fileID: 219040082}
   bottomEdgeCollider: {fileID: 1185774477}
