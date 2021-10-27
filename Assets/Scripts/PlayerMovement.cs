@@ -18,10 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] float jumpEnergy = 18f;
 
-  public float JumpSpeed { get; set; }
-  [SerializeField] float jumpSpeed = 0.1f;
-
-  [SerializeField] float jumpDecrease = 0.8f;
+  [SerializeField] float jumpDecreaseCoefficient = 0.8f;
 
   [SerializeField] int dashDuration = 5;
 
@@ -37,9 +34,7 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] BoxCollider2D hitbox;
   [SerializeField] EdgeCollider2D bottomEdgeCollider;
 
-#region tempInputBindSystem
   [SerializeField] InputManager inputManager;
-#endregion
 
   private int jumpState = 0; // 0 - can jump, 1 - jump in progress, 2 - can't jump
   private float tempJumpEnergy;
@@ -115,16 +110,17 @@ public class PlayerMovement : MonoBehaviour
         if (jumpState == 1)
         {
           // Debug.Log(tempJumpEnergy);
-          rb2d.position = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+          //rb2d.position = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+          newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
           // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
-          tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecrease, 0);
+          tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
           if (tempJumpEnergy < 0.05)
           {
             tempJumpEnergy = 0;
           }
-          if (tempJumpEnergy > 0) {
+          /*if (tempJumpEnergy > 0) {
             newVelocity.y = 0f;
-          }
+          }*/
 
           // Debug.Log("hello");
           // Debug.Log(tempJumpEnergy);
