@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] float dashSpeed = 15f;
 
-  [SerializeField] Vector2 dashColliderSize = new Vector2(0.8f, 0.8f);
+  // [SerializeField] Vector2 dashColliderSize = new Vector2(0.8f, 0.8f);
+  [SerializeField] float dashColliderScale = 0.9f;
 
   [SerializeField] bool onGround = false;
 
@@ -34,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] Rigidbody2D rb2d;
   [SerializeField] BoxCollider2D hitbox;
-  [SerializeField] EdgeCollider2D bottomEdgeCollider;
+  [SerializeField] GameObject collisionObj;
+  // [SerializeField] EdgeCollider2D bottomEdgeCollider;
 
 #region tempInputBindSystem
   [SerializeField] InputManager inputManager;
@@ -45,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
 
   private int dashState = 0;
   private int tempDashLength;
-  private Vector2 defaultColliderSize;
+  // private Vector2 defaultColliderSize;
+  private Vector3 defaultColliderSize;
 
   // Start is called before the first frame update
   void Start()
@@ -55,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
     tempJumpEnergy = jumpEnergy;
     tempDashLength = dashDuration;
-    defaultColliderSize = hitbox.size;
+    defaultColliderSize = collisionObj.transform.localScale;
   }
 
   // Update is called once per frame
@@ -77,13 +80,15 @@ public class PlayerMovement : MonoBehaviour
     Vector2 newVelocity = new Vector2();
     if (dashState == 1)
     {
-      hitbox.size = dashColliderSize;
+      // hitbox.size = dashColliderSize;
+      collisionObj.transform.localScale = dashColliderScale * defaultColliderSize;
       newVelocity.y = 0;
       newVelocity.x = isFacingRight ? dashSpeed : -dashSpeed;
       if (--tempDashLength <= 0)
       {
         dashState = 2;
-        hitbox.size = defaultColliderSize;
+        // hitbox.size = defaultColliderSize;
+        collisionObj.transform.localScale = defaultColliderSize;
       }
     } else
     {
