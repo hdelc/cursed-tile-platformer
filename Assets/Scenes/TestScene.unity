@@ -401,10 +401,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TempBlock
       objectReference: {fileID: 0}
-    - target: {fileID: 665367439817647801, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 665367439817647804, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
       propertyPath: m_RootOrder
       value: 3

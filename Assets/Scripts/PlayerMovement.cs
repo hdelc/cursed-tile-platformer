@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] float dashSpeed = 15f;
 
+  // [SerializeField] Vector2 dashColliderSize = new Vector2(0.8f, 0.8f);
+  [SerializeField] float dashColliderScale = 0.9f;
+
   [SerializeField] bool onGround = false;
 
   public PlayerMovementState MovementState { get; private set; }
@@ -32,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
   [SerializeField] Rigidbody2D rb2d;
   [SerializeField] BoxCollider2D hitbox;
-  [SerializeField] EdgeCollider2D bottomEdgeCollider;
+  [SerializeField] GameObject collisionObj;
+  // [SerializeField] EdgeCollider2D bottomEdgeCollider;
 
   [SerializeField] InputManager inputManager;
 
@@ -41,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
   private int dashState = 0;
   private int tempDashLength;
+  // private Vector2 defaultColliderSize;
+  private Vector3 defaultColliderSize;
 
   // Start is called before the first frame update
   void Start()
@@ -50,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
     tempJumpEnergy = jumpEnergy;
     tempDashLength = dashDuration;
+    defaultColliderSize = collisionObj.transform.localScale;
   }
 
   // Update is called once per frame
@@ -71,14 +78,15 @@ public class PlayerMovement : MonoBehaviour
     Vector2 newVelocity = new Vector2();
     if (dashState == 1)
     {
+      // hitbox.size = dashColliderSize;
+      collisionObj.transform.localScale = dashColliderScale * defaultColliderSize;
       newVelocity.y = 0;
       newVelocity.x = isFacingRight ? dashSpeed : -dashSpeed;
-      if (--tempDashLength > 0)
-      {
-
-      } else
+      if (--tempDashLength <= 0)
       {
         dashState = 2;
+        // hitbox.size = defaultColliderSize;
+        collisionObj.transform.localScale = defaultColliderSize;
       }
     } else
     {
@@ -109,27 +117,29 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpState == 1)
         {
-          // Debug.Log(tempJumpEnergy);
-          //rb2d.position = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
-          newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
-          // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
+          Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
+          
+          LayerMask mask = LayerMask.GetMask("Walls");
+          RaycastHit2D raycast = Physics2D.Linecast(rb2d.position, newPosition, mask);
+          if (raycast.transform)
+          {
+            // Debug.Log(newPosition.x);
+            newPosition = raycast.point;
+            float overlap = raycast.distance - (newPosition.y - rb2d.position.y) + 0.5f;
+            // Debug.Log(overlap);
+            newPosition.y -= overlap;
+            tempJumpEnergy = 0;
+          }
+
           tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
           if (tempJumpEnergy < 0.05)
           {
             tempJumpEnergy = 0;
           }
-          /*if (tempJumpEnergy > 0) {
+          if (tempJumpEnergy > 0) {
             newVelocity.y = 0f;
-          }*/
-
-          // Debug.Log("hello");
-          // Debug.Log(tempJumpEnergy);
-          // newVelocity.y += tempJumpEnergy / Time.fixedDeltaTime;
-          // tempJumpEnergy = Mathf.Max(tempJumpEnergy - jumpDecrease, 0);
-          // if (tempJumpEnergy < 0.005)
-          // {
-          //   tempJumpEnergy = 0;
-          // }
+          }
+          rb2d.position = newPosition;
         }
       } else {
         if (jumpState == 1)
