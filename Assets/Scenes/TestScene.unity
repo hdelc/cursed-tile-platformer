@@ -240,6 +240,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: inputManager
       value: 
