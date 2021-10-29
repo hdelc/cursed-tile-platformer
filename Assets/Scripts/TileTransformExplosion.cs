@@ -15,7 +15,8 @@ public class TileTransformExplosion : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    explosionPrefab = (GameObject)Resources.Load("Prefabs/Explosion.prefab", typeof(GameObject));
+    explosionPrefab = GameObject.Find("Explosion");
+    
   }
 
   private void Awake()
@@ -31,9 +32,12 @@ public class TileTransformExplosion : MonoBehaviour
   {
     if(exploded)
     {
-      if(other.gameObject.name == "TileCollision")
+      Debug.Log("Trigger enter: " + other.gameObject.name);
+      TileBehavior tile = other.GetComponentInParent<TileBehavior>();
+      if (tile != null)
       {
-        transformer.Transform(other.gameObject.GetComponentInParent<TileBehavior>());
+        Debug.Log(tile.gameObject.name);
+        transformer.Transform(tile);
       }
     }
   }
@@ -51,6 +55,8 @@ public class TileTransformExplosion : MonoBehaviour
 
   public static void MakeExplosion(Vector2 position, Vector2 size, ITileTransformer transformer)
   {
+    if (explosionPrefab == null)
+      Debug.LogError("TileTransformExplosion could not find the Explosion prefab");
     GameObject explosion = Instantiate(explosionPrefab);
     TileTransformExplosion explosionScript = explosion.GetComponent<TileTransformExplosion>();
     explosionScript.Explode(position, size, transformer);
@@ -60,7 +66,7 @@ public class TileTransformExplosion : MonoBehaviour
   {
     gameObject.transform.position = position;
     this.transformer = transformer;
-    trigger.points = PathGenerator.GenerateEllipticalPath(size).ToArray();
+    trigger.SetPath(0, PathGenerator.GenerateEllipticalPath(size));
     exploded = true;
   }
 }

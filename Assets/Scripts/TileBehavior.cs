@@ -6,6 +6,7 @@ public class TileBehavior : MonoBehaviour
 {
   public GameObject TileCollision { get => TileCollision; private set => tileCollision = value; }
   private GameObject tileCollision;
+  public SpriteRenderer SpriteRenderer;
 
   // Start is called before the first frame update
   void Start()
@@ -23,6 +24,11 @@ public class TileBehavior : MonoBehaviour
     }
   }
 
+  private void Awake()
+  {
+    SpriteRenderer = GetComponent<SpriteRenderer>();
+  }
+
   // Update is called once per frame
   void Update()
   {
@@ -33,4 +39,20 @@ public class TileBehavior : MonoBehaviour
 public interface ITileTransformer
 {
   void Transform(TileBehavior tile);
+}
+
+// For testing
+public class TileColorChange : ITileTransformer
+{
+  private Color color;
+
+  public TileColorChange(Color color)
+  {
+    this.color = color;
+  }
+
+  public void Transform(TileBehavior tile)
+  {
+    tile.SpriteRenderer.color = color;
+  }
 }
