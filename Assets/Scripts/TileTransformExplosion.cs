@@ -15,7 +15,7 @@ public class TileTransformExplosion : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    explosionPrefab = (GameObject)Resources.Load("Prefabs/Explosion", typeof(GameObject));
+    explosionPrefab = (GameObject)Resources.Load("Prefabs/Explosion.prefab", typeof(GameObject));
   }
 
   private void Awake()
