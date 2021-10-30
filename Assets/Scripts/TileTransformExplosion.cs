@@ -6,7 +6,7 @@ public class TileTransformExplosion : MonoBehaviour
 {
   static GameObject explosionPrefab;
   private PolygonCollider2D trigger;
-  private ITileTransformer transformer;
+  private TileTransformer transformer;
 
   private bool exploded = false;
   private int lifespan = 1;
@@ -53,7 +53,7 @@ public class TileTransformExplosion : MonoBehaviour
     }
   }
 
-  public static void MakeExplosion(Vector2 position, Vector2 size, ITileTransformer transformer)
+  public static void MakeExplosion(Vector2 position, Vector2 size, TileTransformer transformer)
   {
     if (explosionPrefab == null)
       Debug.LogError("TileTransformExplosion could not find the Explosion prefab");
@@ -62,7 +62,7 @@ public class TileTransformExplosion : MonoBehaviour
     explosionScript.Explode(position, size, transformer);
   }
 
-  private void Explode(Vector2 position, Vector2 size, ITileTransformer transformer)
+  private void Explode(Vector2 position, Vector2 size, TileTransformer transformer)
   {
     gameObject.transform.position = position;
     this.transformer = transformer;
