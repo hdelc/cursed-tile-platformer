@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-class PathGenerator
+static class PathGenerator
 {
   public static List<Vector2> GenerateEllipticalPath(Vector2 size, int smoothness = 20)
   {
