@@ -51,7 +51,7 @@ public class InputManager : MonoBehaviour
         }
 
     //Testing
-    if (Input.GetKeyDown(KeyCode.Mouse0))
+    /*if (Input.GetKeyDown(KeyCode.Mouse0))
     {
       GameObject player = GameObject.Find("Player");
       TileTransformExplosion.MakeExplosion(player.transform.position, new Vector2(3, 3), new ColorChangeTileTransformer(Color.white));
@@ -60,7 +60,7 @@ public class InputManager : MonoBehaviour
     {
       GameObject player = GameObject.Find("Player");
       TileTransformExplosion.MakeExplosion(player.transform.position, new Vector2(3, 3), new NeutralTileTransformer());
-    }
+    }*/
   }
 
     void FixedUpdate()
