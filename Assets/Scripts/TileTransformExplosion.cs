@@ -15,12 +15,12 @@ public class TileTransformExplosion : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    explosionPrefab = GameObject.Find("Explosion");
     
   }
 
   private void Awake()
   {
+    
     gameObject.TryGetComponent<PolygonCollider2D>(out trigger);
     if(trigger == null)
     {
@@ -55,6 +55,8 @@ public class TileTransformExplosion : MonoBehaviour
 
   public static void MakeExplosion(Vector2 position, Vector2 size, TileTransformer transformer)
   {
+    if (explosionPrefab == null)
+      explosionPrefab = Resources.Load<GameObject>("Prefabs/Explosion");
     if (explosionPrefab == null)
       Debug.LogError("TileTransformExplosion could not find the Explosion prefab");
     GameObject explosion = Instantiate(explosionPrefab);

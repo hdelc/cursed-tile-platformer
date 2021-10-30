@@ -15,6 +15,8 @@ public class LevelRendering : MonoBehaviour
 
   void Start()
   {
+    GameObject player = Instantiate(playerPrefab);
+
     levelStr = File.ReadAllText("./Assets/Scripts/LevelJson/" + levelFileName + ".txt");
     string[] temp1 = levelStr.Trim().Split('\n');
     string[][] temp2 = new string[temp1.Length][];
@@ -37,7 +39,7 @@ public class LevelRendering : MonoBehaviour
           Instantiate(tempBlockPrefab, new Vector3(j, -i), Quaternion.Euler(new Vector3(0,0,0)), this.transform);
         } else if (levelArr[i][j] == 2)
         {
-          playerPrefab.transform.position = new Vector2(j, -i);
+          player.transform.position = new Vector2(j, -i);
         }
       }
     }

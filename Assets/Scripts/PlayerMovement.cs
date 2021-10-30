@@ -47,10 +47,12 @@ public class PlayerMovement : MonoBehaviour
   private int tempDashLength;
   // private Vector2 defaultColliderSize;
   private Vector3 defaultColliderSize;
-
-  // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
+    if(inputManager == null)
+    {
+      inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+    }
     rb2d = this.GetComponent<Rigidbody2D>();
     hitbox = this.GetComponent<BoxCollider2D>();
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
