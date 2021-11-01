@@ -143,6 +143,14 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 878082673}
+    - target: {fileID: 8344230175435111052, guid: 61ff1214d35eaf2e9ad18505366363c0, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8344230176513301271, guid: 61ff1214d35eaf2e9ad18505366363c0, type: 3}
+      propertyPath: orthographic size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8564598741884216825, guid: 61ff1214d35eaf2e9ad18505366363c0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -198,7 +206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1779801126, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: m_Size.x
-      value: 0.91
+      value: 0.89
       objectReference: {fileID: 0}
     - target: {fileID: 1779801126, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: m_Offset.y
@@ -256,6 +264,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942785, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 43eff6f61dc9363d586096115d1275a7, type: 3}
+    - target: {fileID: 5903168313289942785, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942785, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942785, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: m_AngularDrag
       value: 0
@@ -268,9 +292,17 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942787, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942787, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: jumpLength
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: inputManager

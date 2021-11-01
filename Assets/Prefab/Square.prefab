@@ -29,8 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8186244827273312485}
-  m_RootOrder: 1
+  m_Father: {fileID: 5903168313289942784}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1779801126
 BoxCollider2D:
@@ -99,9 +99,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5903168312054781406}
-  - {fileID: 1779801125}
   m_Father: {fileID: 5903168313289942784}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &652762957
 BoxCollider2D:
@@ -226,6 +225,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1779801125}
   - {fileID: 8186244827273312485}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -298,7 +298,9 @@ MonoBehaviour:
   gravity: -36
   terminalVelocity: -45
   jumpEnergy: 1.1
-  jumpDecrease: 0.75
+  jumpVelocity: 2
+  jumpDecreaseCoefficient: 0.8
+  jumpLength: 18
   dashDuration: 9
   dashSpeed: 25
   dashColliderScale: 0.9
