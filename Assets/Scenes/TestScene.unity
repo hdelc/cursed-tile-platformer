@@ -261,13 +261,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942786, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: m_GravityScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: jumpLength
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 1462574544}
+    - target: {fileID: 5903168313289942814, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
+      propertyPath: jumpVelocity
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5903168313289942815, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
       propertyPath: m_Name
       value: Square
@@ -338,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872e56cfa81657d04a22734c9ad40057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelFileName: testlevel2
+  levelFileName: testlevel
   playerPrefab: {fileID: 878082668}
   tempBlockPrefab: {fileID: 228521377}
 --- !u!1001 &2102417436
