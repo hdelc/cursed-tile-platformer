@@ -36,5 +36,5 @@ public abstract class TileTransformer
 
   protected abstract TileState ProduceTileState(TileBehavior tile);
 
-  protected abstract class TileState { }
+  protected class TileState { }
 }
