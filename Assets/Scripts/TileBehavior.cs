@@ -10,6 +10,9 @@ public class TileBehavior : MonoBehaviour
   public SpriteRenderer SpriteRenderer;
   public TileTransformer transformer;
 
+  public delegate void PlayerContactEventHandler(TileBehavior tile, GameObject player);
+  public event PlayerContactEventHandler PlayerContactEvent;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -42,6 +45,11 @@ public class TileBehavior : MonoBehaviour
   public bool RequestTransform(TileTransformer transformer)
   {
     return transformMask.RequestTransform(transformer);
+  }
+
+  public void NotifyContact(GameObject player)
+  {
+    PlayerContactEvent?.Invoke(this, player);
   }
 }
 

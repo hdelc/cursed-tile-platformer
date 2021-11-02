@@ -56,8 +56,8 @@ public class PlayerMovement : MonoBehaviour
     {
       inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
     }
-    rb2d = this.GetComponent<Rigidbody2D>();
-    hitbox = this.GetComponent<BoxCollider2D>();
+    rb2d = GetComponent<Rigidbody2D>();
+    hitbox = GetComponent<BoxCollider2D>();
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
     tempJumpEnergy = jumpEnergy;
     tempJumpLength = jumpLength;
