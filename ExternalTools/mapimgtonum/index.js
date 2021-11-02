@@ -45,13 +45,16 @@ async function txtMapFromImage() {
   let arr = [];
 
   for (let i = 0; i < r.length; i++) {
-    const rgb = (r[i] + g[i] + g[i]) / 3
+    // const rgb = (r[i] + g[i] + g[i]) / 3
+    const rbg = ("#" + parseInt(r.toString(), 16) + parseInt(g.toString(), 16) + parseInt(b.toString(), 16)).toLowerCase();
     if (a[i] == 0) {
-      process.stdout.write("" + 0);
-    } else if (rgb == 0) {
-      process.stdout.write("" + 1);
-    } else if (rgb == 255) {
-      process.stdout.write("" + 2);
+      process.stdout.write("0");
+    } else if (rgb == "#000000") {
+      process.stdout.write("1");
+    } else if (rgb == "#ffffff") {
+      process.stdout.write("2");
+    } else if (rgb == "#00ff00") {
+      process.stdout.write("3");
     }
     if ((i+1) % width == 0) {
       process.stdout.write("\n")
