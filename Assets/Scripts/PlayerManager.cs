@@ -11,6 +11,26 @@ public class PlayerManager : MonoBehaviour
   private List<TileBehavior> uniqueTileContacts;
   [SerializeField] BoxCollider2D hitbox;
 
+  // Access scalars from movement module
+  public float MovementSpeedScalar
+  {
+    get => movementSpeedScalar;
+    set => movementSpeedScalar = value;
+  }
+  private float movementSpeedScalar = 1f;
+  public float MovementAccelerationScalar
+  {
+    get => movementAccelerationScalar;
+    set => movementAccelerationScalar = value;
+  }
+  private float movementAccelerationScalar = 1f;
+  public float JumpHeightScalar
+  {
+    get => jumpHeightScalar;
+    set => jumpHeightScalar = value;
+  }
+  private float jumpHeightScalar = 1f;
+
   // Start is called before the first frame update
   void Start()
   {
