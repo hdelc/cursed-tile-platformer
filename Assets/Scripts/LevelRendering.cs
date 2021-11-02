@@ -13,7 +13,10 @@ public class LevelRendering : MonoBehaviour
   [SerializeField] public GameObject playerPrefab;
   [SerializeField] public GameObject tempBlockPrefab;
 
-  void Start()
+  public int width = 0;
+  public int height = 0;
+
+  void OnEnable()
   {
     GameObject player = Instantiate(playerPrefab);
 
@@ -37,6 +40,8 @@ public class LevelRendering : MonoBehaviour
         if (levelArr[i][j] == 1)
         {
           Instantiate(tempBlockPrefab, new Vector3(j, -i), Quaternion.Euler(new Vector3(0,0,0)), this.transform);
+          width = j;
+          height = i;
         } else if (levelArr[i][j] == 2)
         {
           player.transform.position = new Vector2(j, -i);

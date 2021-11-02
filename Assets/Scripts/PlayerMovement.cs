@@ -17,8 +17,10 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] float terminalVelocity = -6f;
 
   [SerializeField] float jumpEnergy = 18f;
+  [SerializeField] float jumpVelocity = 2f;
 
   [SerializeField] float jumpDecreaseCoefficient = 0.8f;
+  [SerializeField] int jumpLength = 18;
 
   [SerializeField] int dashDuration = 5;
 
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
   private int jumpState = 0; // 0 - can jump, 1 - jump in progress, 2 - can't jump
   private float tempJumpEnergy;
+  private int tempJumpLength;
 
   private int dashState = 0;
   private int tempDashLength;
@@ -57,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     hitbox = this.GetComponent<BoxCollider2D>();
     // inputManager = GameObject.Find("Input Manager").GetComponent<InputManager>();
     tempJumpEnergy = jumpEnergy;
+    tempJumpLength = jumpLength;
     tempDashLength = dashDuration;
     defaultColliderSize = collisionObj.transform.localScale;
   }
@@ -121,14 +125,22 @@ public class PlayerMovement : MonoBehaviour
         {
           //Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
 
-          newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
-
-          tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
-          if (tempJumpEnergy < 0.05)
+          newVelocity.y = jumpVelocity;
+          if (--tempJumpLength <= 0)
           {
-            tempJumpEnergy = 0;
+            //newVelocity.y = jumpVelocity / 2f;
+            // newVelocity.y = jumpVelocity / 3f;
+            newVelocity.y = rb2d.velocity.y / 4f;
             jumpState = 2;
           }
+          // newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
+
+          // tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
+          // if (tempJumpEnergy < 0.05)
+          // {
+          //   tempJumpEnergy = 0;
+          //   jumpState = 2;
+          // }
           /*if (tempJumpEnergy > 0) {
             newVelocity.y = 0f;
           }
@@ -137,10 +149,17 @@ public class PlayerMovement : MonoBehaviour
       } else {
         if (jumpState == 1)
         {
-          if (tempJumpEnergy > 0) {
-            newVelocity.y = 2f;
+          // if (tempJumpEnergy > 0) {
+          //   newVelocity.y = 2f;
+          // }
+          if (tempJumpLength > 0)
+          {
+            //newVelocity.y = 2f;
+            newVelocity.y = rb2d.velocity.y / 6f;
           }
           jumpState = 2;
+        } else if (jumpState == 2)
+        {
         }
       }
 
@@ -184,6 +203,7 @@ public class PlayerMovement : MonoBehaviour
   {
     if (!inputManager.Jump) {
       tempJumpEnergy = jumpEnergy;
+      tempJumpLength = jumpLength;
       jumpState = 0;
     }
     if (dashState != 1 && !inputManager.Dash)

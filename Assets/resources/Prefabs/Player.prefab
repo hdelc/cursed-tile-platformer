@@ -29,8 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8186244827273312485}
-  m_RootOrder: 1
+  m_Father: {fileID: 5903168313289942784}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1779801126
 BoxCollider2D:
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.91, y: 0.1}
+  m_Size: {x: 0.89, y: 0.1}
   m_EdgeRadius: 0
 --- !u!114 &1779801127
 MonoBehaviour:
@@ -99,9 +99,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5903168312054781406}
-  - {fileID: 1779801125}
   m_Father: {fileID: 5903168313289942784}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &652762957
 BoxCollider2D:
@@ -227,6 +226,7 @@ Transform:
   m_LocalPosition: {x: 11, y: -44, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
+  - {fileID: 1779801125}
   - {fileID: 8186244827273312485}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -271,8 +271,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 0.60588074, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 43eff6f61dc9363d586096115d1275a7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -299,7 +299,9 @@ MonoBehaviour:
   gravity: -36
   terminalVelocity: -45
   jumpEnergy: 1.1
+  jumpVelocity: 24
   jumpDecreaseCoefficient: 0.8
+  jumpLength: 11
   dashDuration: 9
   dashSpeed: 25
   dashColliderScale: 0.9
