@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TileBehavior : MonoBehaviour
@@ -51,79 +50,4 @@ public class TileBehavior : MonoBehaviour
   {
     PlayerContactEvent?.Invoke(this, player);
   }
-}
-
-public abstract class TileTransformer
-{
-  private Dictionary<TileBehavior, TileState> originalTiles;
-  public abstract Sprite Sprite { get; }
-
-  public TileTransformer()
-  {
-	  originalTiles = new Dictionary<TileBehavior, TileState>();
-  }
-
-  public void Transform(TileBehavior tile)
-  {
-	  if (!originalTiles.ContainsKey(tile))
-	  {
-	    tile.transformer.Revert(tile);
-	    originalTiles.Add(tile, ProduceTileState(tile));
-      tile.SpriteRenderer.sprite = Sprite;
-	    tile.transformer = this;
-	    Transform_Extension(tile);
-	  }
-  }
-  protected abstract void Transform_Extension(TileBehavior tile);
-
-  public void Revert(TileBehavior tile)
-  {
-	  if (originalTiles.ContainsKey(tile))
-	  {
-	    Revert_Extension(tile, originalTiles[tile]);
-	    originalTiles.Remove(tile);
-	  }
-  }
-  protected abstract void Revert_Extension(TileBehavior tile, TileState ot);
-
-  protected abstract TileState ProduceTileState(TileBehavior tile);
-
-  protected abstract class TileState { }
-}
-
-public class NeutralTileTransformer : TileTransformer
-{
-  public override Sprite Sprite { get => sprite; }
-  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\default tile");
-
-  protected override TileState ProduceTileState(TileBehavior tile) { return new NeutralTileState(); }
-  protected override void Revert_Extension(TileBehavior tile, TileState ot) { }
-  protected override void Transform_Extension(TileBehavior tile) { }
-  protected class NeutralTileState : TileState { }
-}
-
-// For testing
-public class SpriteChangeTileTransformer : TileTransformer
-{
-  public override Sprite Sprite { get => sprite; }
-  private static readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\blue tile");
-
-  public SpriteChangeTileTransformer() { }
-
-  protected override void Transform_Extension(TileBehavior tile) 
-  {
-    Debug.Log("SpriteChangeTileTransformer::Transform_Extension");
-  }
-
-  protected override void Revert_Extension(TileBehavior tile, TileState originalTileState)
-  {
-	  Debug.Log("SpriteChangeTileTransformer::Revert_Extension");
-  }
-
-  protected override TileState ProduceTileState(TileBehavior tile)
-  {
-	  return new SpriteChangeTileState();
-  }
-
-  protected class SpriteChangeTileState : TileState { }
 }
