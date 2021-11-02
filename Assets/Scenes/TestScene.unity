@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelFileName: testlevelnew
+  levelFile: {fileID: 4900000, guid: 5e99c4ecc79de1b6b8e5014eeb55bc4e, type: 3}
   playerPrefab: {fileID: 5903168313289942815, guid: 3a3ff5085410058c18853c29f51d7732, type: 3}
   tempBlockPrefab: {fileID: 665367439817647801, guid: bc182688ad537aa1ea104423ae44850d, type: 3}
   width: 0

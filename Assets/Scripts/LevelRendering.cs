@@ -7,6 +7,7 @@ using System;
 public class LevelRendering : MonoBehaviour
 {
   [SerializeField] public string levelFileName = "testlevel";
+  [SerializeField] private TextAsset levelFile;
   private string levelStr;
   private int[][] levelArr;
 
@@ -20,7 +21,8 @@ public class LevelRendering : MonoBehaviour
   {
     GameObject player = Instantiate(playerPrefab);
 
-    levelStr = File.ReadAllText("./Assets/Scripts/LevelJson/" + levelFileName + ".txt");
+    // levelStr = File.ReadAllText("./Assets/Scripts/LevelJson/" + levelFileName + ".txt");
+    levelStr = levelFile.text;
     string[] temp1 = levelStr.Trim().Split('\n');
     string[][] temp2 = new string[temp1.Length][];
     for (int i = 0; i < temp1.Length; i++)
