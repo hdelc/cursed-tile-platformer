@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 // For testing
 public class SpriteChangeTileTransformer : TileTransformer
 {
@@ -16,11 +17,4 @@ public class SpriteChangeTileTransformer : TileTransformer
   {
 	  Debug.Log("SpriteChangeTileTransformer::Revert_Extension");
   }
-
-  protected override TileState ProduceTileState(TileBehavior tile)
-  {
-	  return new SpriteChangeTileState();
-  }
-
-  protected class SpriteChangeTileState : TileState { }
 }

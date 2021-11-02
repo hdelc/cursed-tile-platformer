@@ -34,7 +34,7 @@ public abstract class TileTransformer
   }
   protected abstract void Revert_Extension(TileBehavior tile, TileState ot);
 
-  protected abstract TileState ProduceTileState(TileBehavior tile);
+  protected virtual TileState ProduceTileState(TileBehavior tile) { return new TileState(); }
 
   protected class TileState { }
 }

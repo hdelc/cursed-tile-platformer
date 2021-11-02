@@ -62,4 +62,9 @@ public class PlayerManager : MonoBehaviour
     foreach (TileBehavior tile in uniqueTileContacts)
       tile.NotifyContact(gameObject);
   }
+
+  public void Kill()
+  {
+    Debug.Log("oh no i died");
+  }
 }
