@@ -6,9 +6,9 @@ public class TileBehavior : MonoBehaviour
 {
   public GameObject TileCollision { get => TileCollision; private set => tileCollision = value; }
   private GameObject tileCollision;
-  private GameObject transformMask;
+  private TransformMaskBehavior transformMask;
   public SpriteRenderer SpriteRenderer;
-  public TileTransformer transformer = new NeutralTileTransformer();
+  public TileTransformer transformer;
 
   // Start is called before the first frame update
   void Start()
@@ -18,13 +18,14 @@ public class TileBehavior : MonoBehaviour
 
   private void Awake()
   {
+    transformer = new NeutralTileTransformer();
 	  SpriteRenderer = GetComponent<SpriteRenderer>();
     foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
     {
       if (child.name == "TileCollision")
         tileCollision = child.gameObject;
       if (child.name == "TransformMask")
-        transformMask = child.gameObject;
+        transformMask = child.gameObject.GetComponent<TransformMaskBehavior>();
     }
     if (tileCollision == null)
       Debug.LogError($"Tile \"{gameObject.name}\" could not find its TileCollision");
@@ -36,6 +37,11 @@ public class TileBehavior : MonoBehaviour
   void Update()
   {
 		
+  }
+
+  public bool RequestTransform(TileTransformer transformer)
+  {
+    return transformMask.RequestTransform(transformer);
   }
 }
 
@@ -80,7 +86,7 @@ public abstract class TileTransformer
 public class NeutralTileTransformer : TileTransformer
 {
   public override Sprite Sprite { get => sprite; }
-  private static readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\default tile");
+  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\default tile");
 
   protected override TileState ProduceTileState(TileBehavior tile) { return new NeutralTileState(); }
   protected override void Revert_Extension(TileBehavior tile, TileState ot) { }
@@ -89,42 +95,27 @@ public class NeutralTileTransformer : TileTransformer
 }
 
 // For testing
-public class ColorChangeTileTransformer : TileTransformer
+public class SpriteChangeTileTransformer : TileTransformer
 {
   public override Sprite Sprite { get => sprite; }
   private static readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\blue tile");
 
-  private Color color;
+  public SpriteChangeTileTransformer() { }
 
-  public ColorChangeTileTransformer(Color color)
+  protected override void Transform_Extension(TileBehavior tile) 
   {
-	  this.color = color;
-  }
-
-  protected override void Transform_Extension(TileBehavior tile)
-  {
-	  tile.SpriteRenderer.color = color;
+    Debug.Log("SpriteChangeTileTransformer::Transform_Extension");
   }
 
   protected override void Revert_Extension(TileBehavior tile, TileState originalTileState)
   {
-	  Debug.Log("Revert Color");
-	  ColorChangeTileState originalState = (ColorChangeTileState)originalTileState;
-	  tile.SpriteRenderer.color = originalState.color;
+	  Debug.Log("SpriteChangeTileTransformer::Revert_Extension");
   }
 
   protected override TileState ProduceTileState(TileBehavior tile)
   {
-	  return new ColorChangeTileState(tile);
+	  return new SpriteChangeTileState();
   }
 
-  protected class ColorChangeTileState : TileState
-  {
-	  public Color color;
-
-	  public ColorChangeTileState(TileBehavior tile)
-	  {
-	    color = tile.SpriteRenderer.color;
-	  }
-  }
+  protected class SpriteChangeTileState : TileState { }
 }
