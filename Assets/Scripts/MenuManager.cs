@@ -17,8 +17,13 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    public void PlayGame(int charIndex)
-    { // either have it set the character here or every time smth is clicked
+    public void PlayGame()
+    {
       SceneManager.LoadScene("TestScene");
+    }
+
+    public void SetCharacter(int newCharacterIndex)
+    {
+      GlobalData.characterIndex = newCharacterIndex;
     }
 }

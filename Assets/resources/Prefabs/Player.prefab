@@ -294,23 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a8bc8150cd48c468be5454bab12e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 14
-  horizontalAcceleration: 70
-  gravity: -36
-  terminalVelocity: -45
-  jumpEnergy: 1.1
-  jumpVelocity: 24
-  jumpDecreaseCoefficient: 0.8
-  jumpLength: 11
-  dashDuration: 9
-  dashSpeed: 25
-  dashColliderScale: 0.9
-  onGround: 0
-  isFacingRight: 1
-  rb2d: {fileID: 5903168313289942786}
-  hitbox: {fileID: 652762957}
-  collisionObj: {fileID: 1937020182980781563}
-  inputManager: {fileID: 0}
+  slowJumpSprite: {fileID: 21300000, guid: 55bb226b5ab14463a88673261654fe73, type: 3}
+  jankJumpSprite: {fileID: 21300000, guid: 1068a4ddcbd286e56a8ca73a7d9ae58b, type: 3}
+  consJumpSprite: {fileID: 21300000, guid: 43eff6f61dc9363d586096115d1275a7, type: 3}
 --- !u!50 &5903168313289942786
 Rigidbody2D:
   serializedVersion: 4
