@@ -9,7 +9,7 @@ public class TileBehavior : MonoBehaviour
   public SpriteRenderer SpriteRenderer;
   public TileTransformer transformer;
 
-  public delegate void PlayerContactEventHandler(TileBehavior tile, GameObject player);
+  public delegate void PlayerContactEventHandler(TileBehavior sender, PlayerContactEventArgs args);
   public event PlayerContactEventHandler PlayerContactEvent;
 
   // Start is called before the first frame update
@@ -48,6 +48,20 @@ public class TileBehavior : MonoBehaviour
 
   public void NotifyContact(GameObject player)
   {
-    PlayerContactEvent?.Invoke(this, player);
+    Vector2 relativePlayerVector = player.transform.position - gameObject.transform.position;
+    bool isPlayerOnTile = Vector2.Dot(Vector2.up, relativePlayerVector) > relativePlayerVector.magnitude / 2f;
+    PlayerContactEvent?.Invoke(this, new PlayerContactEventArgs(player, isPlayerOnTile));
+  }
+
+  public struct PlayerContactEventArgs
+  {
+    public GameObject player;
+    public bool isPlayerOnTile;
+
+    public PlayerContactEventArgs(GameObject player, bool isPlayerOnTile)
+    {
+      this.player = player;
+      this.isPlayerOnTile = isPlayerOnTile;
+    }
   }
 }

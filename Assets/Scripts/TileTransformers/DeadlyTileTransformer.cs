@@ -22,9 +22,9 @@ class DeadlyTileTransformer : TileTransformer
     tile.PlayerContactEvent += Tile_PlayerContactEvent;
   }
 
-  private void Tile_PlayerContactEvent(TileBehavior tile, GameObject player)
+  private void Tile_PlayerContactEvent(TileBehavior tile, TileBehavior.PlayerContactEventArgs args)
   {
-    player.GetComponent<PlayerManager>()?.Kill();
+    args.player.GetComponent<PlayerManager>()?.Kill();
   }
 }
 
