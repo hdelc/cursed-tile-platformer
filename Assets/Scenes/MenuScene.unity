@@ -872,7 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min: 0.95
   max: 1.05
-  speed: 1.8
+  speed: 6
 --- !u!114 &1396013491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 1868204418}
   - component: {fileID: 1868204417}
   - component: {fileID: 1868204416}
+  - component: {fileID: 1868204419}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -1282,7 +1283,7 @@ RectTransform:
   m_GameObject: {fileID: 1868204414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2134925512}
   m_Father: {fileID: 2102050860}
@@ -1291,7 +1292,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -215}
-  m_SizeDelta: {x: 387.5, y: 150}
+  m_SizeDelta: {x: 290, y: 112}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1868204416
 MonoBehaviour:
@@ -1387,6 +1388,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868204414}
   m_CullTransparentMesh: 1
+--- !u!114 &1868204419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868204414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19699012d52ede088abde0f15348f46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  min: 0.95
+  max: 1.05
+  speed: 6
 --- !u!1 &2012232544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,6 +1495,7 @@ GameObject:
   - component: {fileID: 2102050858}
   - component: {fileID: 2102050857}
   - component: {fileID: 2102050861}
+  - component: {fileID: 2102050862}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1586,6 +1603,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc99e22b8c72f3fe1a81d63062e8b3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuCol: 0
+  frameZoom: {fileID: 1396013490}
+  playZoom: {fileID: 1868204419}
+--- !u!114 &2102050862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102050856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3afa0c19b288824389b6c867cff9b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2134925511
