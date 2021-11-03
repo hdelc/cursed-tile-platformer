@@ -45,8 +45,7 @@ async function txtMapFromImage() {
   let arr = [];
 
   for (let i = 0; i < r.length; i++) {
-    // const rgb = (r[i] + g[i] + g[i]) / 3
-    const rbg = ("#" + parseInt(r.toString(), 16) + parseInt(g.toString(), 16) + parseInt(b.toString(), 16)).toLowerCase();
+    const rgb = "#" + r[i].toString(16).padStart(2, "0") + g[i].toString(16).padStart(2, "0") + b[i].toString(16).padStart(2, "0");
     if (a[i] == 0) {
       process.stdout.write("0");
     } else if (rgb == "#000000") {

@@ -6,13 +6,15 @@ using System;
 
 public class LevelRendering : MonoBehaviour
 {
-  [SerializeField] public string levelFileName = "testlevel";
+  // [SerializeField] public string levelFileName = "testlevel";
   [SerializeField] private TextAsset levelFile;
   private string levelStr;
   private int[][] levelArr;
 
   [SerializeField] public GameObject playerPrefab;
   [SerializeField] public GameObject tempBlockPrefab;
+  // [SerializeField] public GameObject collectiblePrefab;
+  [SerializeField] public GameObject collectibleParent;
 
   public int width = 0;
   public int height = 0;
@@ -47,10 +49,14 @@ public class LevelRendering : MonoBehaviour
         } else if (levelArr[i][j] == 2)
         {
           player.transform.position = new Vector2(j, -i);
+        } else if (levelArr[i][j] == 3)
+        {
+          GameObject cSpawn = new GameObject("c - " + j + i);
+          cSpawn.transform.parent = collectibleParent.transform;
+          cSpawn.transform.position = new Vector3(j, -i, -2);
         }
       }
     }
-
   }
 
   // Update is called once per frame
