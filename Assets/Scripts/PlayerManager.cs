@@ -9,7 +9,11 @@ public class PlayerManager : MonoBehaviour
   
   private Collider2D[] contacts;
   private List<TileBehavior> uniqueTileContacts;
+  public PlayerEffect playerEffect;
   [SerializeField] BoxCollider2D hitbox;
+
+  private PlayerEffect requestedPlayerEffect;
+  private bool isPlayerEffectRequested;
 
   // Access scalars from movement module
   public float MovementSpeedScalar
@@ -53,6 +57,7 @@ public class PlayerManager : MonoBehaviour
       camera.Follow = transform;
       contacts = new Collider2D[40];
       uniqueTileContacts = new List<TileBehavior>();
+      //requestedEffectors = new List<PlayerEffect>();
     }
   }
 
@@ -87,6 +92,66 @@ public class PlayerManager : MonoBehaviour
   {
     Debug.Log("oh no i died");
   }
+
+  public void RequestEffect(PlayerEffect effect)
+  {
+    isPlayerEffectRequested = true;
+    if (effect.CompareTo(requestedPlayerEffect) > 0)
+      requestedPlayerEffect = effect;
+  }
+
+  private void ApplyEffect()
+  {
+    switch (playerEffect)
+    {
+      case PlayerEffect.NEUTRAL:
+        break;
+      case PlayerEffect.SLIPPERY:
+        MovementAccelerationScalar = 0.3f;
+        break;
+      case PlayerEffect.LOW_SPEED:
+        MovementSpeedScalar = 0.3f;
+        break;
+      case PlayerEffect.LOW_JUMP:
+        JumpHeightScalar = 0.3f;
+        break;
+      case PlayerEffect.DEATH:
+        Kill();
+        break;
+    }
+  }
+
+  private void RemoveEffect()
+  {
+    switch (playerEffect)
+    {
+      case PlayerEffect.NEUTRAL:
+        break;
+      case PlayerEffect.SLIPPERY:
+        MovementAccelerationScalar = 1f;
+        break;
+      case PlayerEffect.LOW_SPEED:
+        MovementSpeedScalar = 1f;
+        break;
+      case PlayerEffect.LOW_JUMP:
+        JumpHeightScalar = 1f;
+        break;
+      case PlayerEffect.DEATH:
+        break;
+    }
+  }
+
+  private void LateUpdate()
+  {
+    if (isPlayerEffectRequested)
+    {
+      RemoveEffect();
+      playerEffect = requestedPlayerEffect;
+      ApplyEffect();
+    }
+    requestedPlayerEffect = PlayerEffect.NEUTRAL;
+    isPlayerEffectRequested = false;
+  }
 }
 
 public enum PlayerEffect
@@ -95,6 +160,5 @@ public enum PlayerEffect
   SLIPPERY,
   LOW_SPEED,
   LOW_JUMP,
-  BOUNCE,
   DEATH
 }
