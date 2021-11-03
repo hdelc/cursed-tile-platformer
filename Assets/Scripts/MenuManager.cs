@@ -46,46 +46,46 @@ public class MenuManager : MonoBehaviour
       frameZoom.enabled = true;
       playZoom.enabled = false;
 
-    if (inputManager.HorizontalAxis != 0)
-    {
-      if (hClickState == 0) {
-        hClickState = 1;
-      }
-      if (hClickState == 1)
+      if (inputManager.HorizontalAxis != 0)
       {
-        hClickState = 2;
-        int temp = GlobalData.characterIndex;
-        if (inputManager.HorizontalAxis > 0)
-        {
-          temp = (temp + 1) % 3;
-        } else if (inputManager.HorizontalAxis < 0)
-        {
-          temp = temp - 1;
-          if (temp < 0)
-          {
-            temp = temp + 3;
-          }
-          temp = temp % 3;
+        if (hClickState == 0) {
+          hClickState = 1;
         }
-        GlobalData.characterIndex = temp;
+        if (hClickState == 1)
+        {
+          hClickState = 2;
+          int temp = GlobalData.characterIndex;
+          if (inputManager.HorizontalAxis > 0)
+          {
+            temp = (temp + 1) % 3;
+          } else if (inputManager.HorizontalAxis < 0)
+          {
+            temp = temp - 1;
+            if (temp < 0)
+            {
+              temp = temp + 3;
+            }
+            temp = temp % 3;
+          }
+          GlobalData.characterIndex = temp;
+        }
+      } else {
+        if (hClickState == 2)
+        {
+          hClickState = 0;
+        }
       }
-    } else {
-      if (hClickState == 2)
-      {
-        hClickState = 0;
-      }
-    }
     } else if (menuCol == 1)
     {
       frameZoom.enabled = false;
       playZoom.enabled = true;
+    }
 
-      if (inputManager.Jump)
-      {
-        playZoom.gameObject.GetComponent<Image>().color = new Color(1f, 0.76f, 0.08f);
-        // PlayGame();
-        DelayedPlayGame();
-      }
+    if (inputManager.Jump /* && menuCol == 1 */)
+    {
+      playZoom.gameObject.GetComponent<Image>().color = new Color(1f, 0.76f, 0.08f);
+      // PlayGame();
+      DelayedPlayGame();
     }
   }
 
