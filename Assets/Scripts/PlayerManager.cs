@@ -88,3 +88,13 @@ public class PlayerManager : MonoBehaviour
     Debug.Log("oh no i died");
   }
 }
+
+public enum PlayerEffect
+{
+  NEUTRAL,
+  SLIPPERY,
+  LOW_SPEED,
+  LOW_JUMP,
+  BOUNCE,
+  DEATH
+}
