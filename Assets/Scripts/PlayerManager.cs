@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviour
   {
     switch (playerEffect)
     {
-      case PlayerEffect.NEUTRAL:
+      case PlayerEffect.NONE:
         break;
       case PlayerEffect.SLIPPERY:
         MovementAccelerationScalar = 0.3f;
@@ -125,7 +125,7 @@ public class PlayerManager : MonoBehaviour
   {
     switch (playerEffect)
     {
-      case PlayerEffect.NEUTRAL:
+      case PlayerEffect.NONE:
         break;
       case PlayerEffect.SLIPPERY:
         MovementAccelerationScalar = 1f;
@@ -141,24 +141,33 @@ public class PlayerManager : MonoBehaviour
     }
   }
 
-  private void LateUpdate()
+  private void UpdateEffect()
   {
-    if (isPlayerEffectRequested)
+    if (requestedPlayerEffect != PlayerEffect.NONE)
     {
       RemoveEffect();
       playerEffect = requestedPlayerEffect;
       ApplyEffect();
     }
-    requestedPlayerEffect = PlayerEffect.NEUTRAL;
+  }
+
+  private void LateUpdate()
+  {
+    if (isPlayerEffectRequested)
+    {
+      UpdateEffect();
+    }
+    requestedPlayerEffect = PlayerEffect.NONE;
     isPlayerEffectRequested = false;
   }
 }
 
 public enum PlayerEffect
 {
-  NEUTRAL,
+  NONE,
   SLIPPERY,
   LOW_SPEED,
   LOW_JUMP,
+  CLEANSE,
   DEATH
 }

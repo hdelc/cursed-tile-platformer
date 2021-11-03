@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-class DeadlyTileTransformer : TileTransformer
+class LowJumpTileTransformer : TileTransformer
 {
   public override Sprite Sprite { get => sprite; }
-  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\red tile");
+  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\orange tile");
 
   protected override void Revert_Extension(TileBehavior tile, TileState ot)
   {
@@ -22,6 +17,6 @@ class DeadlyTileTransformer : TileTransformer
 
   private void Tile_PlayerContactEvent(TileBehavior tile, TileBehavior.PlayerContactEventArgs args)
   {
-    args.player.GetComponent<PlayerManager>()?.RequestEffect(PlayerEffect.DEATH);
+    args.player.GetComponent<PlayerManager>()?.RequestEffect(PlayerEffect.LOW_JUMP);
   }
 }
