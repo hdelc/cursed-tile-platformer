@@ -8,7 +8,7 @@ using UnityEngine;
 class DeadlyTileTransformer : TileTransformer
 {
   public override Sprite Sprite { get => sprite; }
-  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\pink tile");
+  private readonly Sprite sprite = Resources.Load<Sprite>(@"Sprites\red tile");
 
   protected override TileState ProduceTileState(TileBehavior tile) { return new TileState(); }
 
