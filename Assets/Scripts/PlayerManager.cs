@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
   static GameObject player_instance;
   Cinemachine.CinemachineVirtualCamera camera;
-  
+
   private Collider2D[] contacts;
   private List<TileBehavior> uniqueTileContacts;
   public PlayerEffect playerEffect;
@@ -34,6 +34,11 @@ public class PlayerManager : MonoBehaviour
     set => jumpHeightScalar = value;
   }
   private float jumpHeightScalar = 1f;
+  public float DashSpeedScalar
+  {
+    get => dashSpeedScalar; set => dashSpeedScalar = value;
+  }
+  private float dashSpeedScalar;
 
   // Start is called before the first frame update
   void Start()
@@ -76,7 +81,7 @@ public class PlayerManager : MonoBehaviour
   private void InvokeUniqueTileCollisions(int numContacts)
   {
     uniqueTileContacts.Clear();
-    for(int i=0; i<numContacts; i++)
+    for (int i = 0; i < numContacts; i++)
     {
       TileBehavior tile = contacts[i].GetComponentInParent<TileBehavior>();
       if (tile != null && !uniqueTileContacts.Contains(tile))
@@ -115,8 +120,13 @@ public class PlayerManager : MonoBehaviour
       case PlayerEffect.LOW_JUMP:
         JumpHeightScalar = 0.3f;
         break;
+      case PlayerEffect.FREEZE_DASH:
+        DashSpeedScalar = 0f;
+        break;
       case PlayerEffect.DEATH:
         Kill();
+        break;
+      case PlayerEffect.CLEANSE:
         break;
     }
   }
@@ -133,10 +143,15 @@ public class PlayerManager : MonoBehaviour
       case PlayerEffect.LOW_SPEED:
         MovementSpeedScalar = 1f;
         break;
+      case PlayerEffect.FREEZE_DASH:
+        DashSpeedScalar = 1f;
+        break;
       case PlayerEffect.LOW_JUMP:
         JumpHeightScalar = 1f;
         break;
       case PlayerEffect.DEATH:
+        break;
+      case PlayerEffect.CLEANSE:
         break;
     }
   }
@@ -157,17 +172,18 @@ public class PlayerManager : MonoBehaviour
     {
       UpdateEffect();
     }
-    requestedPlayerEffect = PlayerEffect.NONE;
+    requestedPlayerEffect = PlayerEffect.DEATH;
     isPlayerEffectRequested = false;
   }
 }
 
 public enum PlayerEffect
 {
-  NONE,
+  DEATH,
+  FREEZE_DASH,
   SLIPPERY,
   LOW_SPEED,
   LOW_JUMP,
-  CLEANSE,
-  DEATH
+  NONE,
+  CLEANSE
 }
