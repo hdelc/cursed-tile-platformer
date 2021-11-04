@@ -37,7 +37,7 @@ public class TileTransformExplosion : MonoBehaviour
       if (tile != null)
       {
         Debug.Log(tile.gameObject.name);
-        transformer.Transform(tile);
+        tile.RequestTransform(transformer);
       }
     }
   }

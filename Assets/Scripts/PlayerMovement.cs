@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
   private Timer timer;
   private Component cmp = null;
 
-  void Start()
+  void Awake()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();
     timer = GameObject.FindObjectOfType<Timer>();

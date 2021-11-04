@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     /*if (Input.GetKeyDown(KeyCode.Mouse0))
     {
       GameObject player = GameObject.Find("Player");
-      TileTransformExplosion.MakeExplosion(player.transform.position, new Vector2(3, 3), new ColorChangeTileTransformer(Color.white));
+      TileTransformExplosion.MakeExplosion(player.transform.position, new Vector2(3, 3), new SpriteChangeTileTransformer());
     }
     if (Input.GetKeyDown(KeyCode.Mouse1))
     {
