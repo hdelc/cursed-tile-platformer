@@ -63,6 +63,8 @@ public class PlayerManager : MonoBehaviour
       contacts = new Collider2D[40];
       uniqueTileContacts = new List<TileBehavior>();
       //requestedEffectors = new List<PlayerEffect>();
+
+      Debug.Log("Player loaded");
     }
   }
 

@@ -23,6 +23,8 @@ public class TileManager : MonoBehaviour
     availableTransformers.Add(new CleanseTileTransformer());
 
     level = GameObject.Find("Level").GetComponent<LevelRendering>();
+
+    Debug.Log("TileManager loaded");
   }
 
   // Update is called once per frame
