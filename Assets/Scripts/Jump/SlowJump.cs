@@ -134,7 +134,7 @@ public class SlowJump : MonoBehaviour
         if (jumpState == 0) 
         {
           gravity = jumpGravityScale * baseGravity;
-          newVelocity.y = jumpSpeed * playerManager.JumpHeightScalar;
+          newVelocity.y = jumpSpeed * Mathf.Sqrt(playerManager.JumpHeightScalar);
           jumpState = 1;
         }
 
