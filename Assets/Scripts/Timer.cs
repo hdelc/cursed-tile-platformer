@@ -8,7 +8,9 @@ public class Timer : MonoBehaviour
 {
   public float totalTime = 0f;
   [SerializeField] public float survivalTime = 10f;
+  [SerializeField] public float tileSpawnInterval = 2f;
   private float lastCollectTime = 0f;
+  private float lastTileSpawnTime = 0f;
   public float timeRemaining { get { return survivalTime - (totalTime - lastCollectTime); }}
   private float finalTime = 0f;
   public bool hasLost = false;
@@ -21,10 +23,17 @@ public class Timer : MonoBehaviour
   [SerializeField] GameObject overlay1;
   [SerializeField] GameObject overlay2;
 
+  private TileManager tileManager;
+
   void Start()
   {
     overlay1.SetActive(false);
     overlay2.SetActive(false);
+  }
+
+  private void Awake()
+  {
+    tileManager = GameObject.Find("TileManager").GetComponent<TileManager>();
   }
 
   void Update()
@@ -32,6 +41,11 @@ public class Timer : MonoBehaviour
     if (!hasLost)
     {
       totalTime += Time.deltaTime;
+      if (totalTime - lastTileSpawnTime > tileSpawnInterval)
+      {
+        lastTileSpawnTime = totalTime;
+        tileManager.TransformTiles();
+      }
     }
     if (timeRemaining < 0)
     {
