@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   timeBeforeDestroy: 1
+  timer: {fileID: 0}
 --- !u!61 &473726604
 BoxCollider2D:
   m_ObjectHideFlags: 0

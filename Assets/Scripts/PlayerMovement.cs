@@ -10,30 +10,44 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] private Sprite consJumpSprite;
 
   private SpriteRenderer spriteRenderer;
+  private Timer timer;
+  private Component cmp = null;
 
   void Start()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();
+    timer = GameObject.FindObjectOfType<Timer>();
 
     int index = GlobalData.characterIndex;
     switch (index)
     {
       case 0:
-        gameObject.AddComponent(Type.GetType("SlowJump"));
+        cmp = gameObject.AddComponent(Type.GetType("SlowJump"));
         spriteRenderer.sprite = slowJumpSprite;
         break;
       case 1:
-        gameObject.AddComponent(Type.GetType("JankJump"));
+        cmp = gameObject.AddComponent(Type.GetType("JankJump"));
         spriteRenderer.sprite = jankJumpSprite;
         break;
       case 2:
-        gameObject.AddComponent(Type.GetType("ConsJump"));
+        cmp = gameObject.AddComponent(Type.GetType("ConsJump"));
         spriteRenderer.sprite = consJumpSprite;
         break;
       default:
-        gameObject.AddComponent(Type.GetType("ConsJump"));
+        cmp = gameObject.AddComponent(Type.GetType("ConsJump"));
         spriteRenderer.sprite = consJumpSprite;
         break;
+    }
+  }
+
+  void Update()
+  {
+    if (cmp != null)
+    {
+      if (timer.hasLost)
+      {
+        Destroy(cmp);
+      }
     }
   }
 }

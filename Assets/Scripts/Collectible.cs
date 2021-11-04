@@ -7,6 +7,7 @@ public class Collectible : MonoBehaviour
 {
   [SerializeField] GameObject parent;
   [SerializeField] float timeBeforeDestroy = 1f;
+  [SerializeField] Timer timer;
   private bool grabbed = false;
   private Animator anim;
 
@@ -53,6 +54,6 @@ public class Collectible : MonoBehaviour
 
   void DoAThing()
   {
-
+    timer.resetCountdown();
   }
 }
