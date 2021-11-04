@@ -117,10 +117,10 @@ public class PlayerManager : MonoBehaviour
         MovementAccelerationScalar = 0.3f;
         break;
       case PlayerEffect.LOW_SPEED:
-        MovementSpeedScalar = 0.3f;
+        MovementSpeedScalar = 0.5f;
         break;
       case PlayerEffect.LOW_JUMP:
-        JumpHeightScalar = 0.5f;
+        JumpHeightScalar = 0.7f;
         break;
       case PlayerEffect.FREEZE_DASH:
         DashSpeedScalar = 0f;

@@ -20,6 +20,7 @@ public class TileManager : MonoBehaviour
     availableTransformers.Add(new LowJumpTileTransformer());
     availableTransformers.Add(new SlipperyTileTransformer());
     availableTransformers.Add(new SlowTileTransformer());
+    availableTransformers.Add(new FreezeDashTileTransformer());
     availableTransformers.Add(new CleanseTileTransformer());
 
     level = GameObject.Find("Level").GetComponent<LevelRendering>();

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ConsJump : MonoBehaviour
 {
-  public float RunSpeed { get => runSpeed; set => runSpeed = value; }
+  public float RunSpeed { get => runSpeed * playerManager.MovementSpeedScalar; set => runSpeed = value; }
   [SerializeField] private float runSpeed = 14f;
 
   public float HorizontalAcceleration { get => horizontalAcceleration * playerManager.MovementAccelerationScalar; set => horizontalAcceleration = value; }
