@@ -60,7 +60,7 @@ public class Timer : MonoBehaviour
     lastCollectTime = totalTime;
   }
 
-  private void lostGame()
+  public void lostGame()
   {
     if (hasLost)
     {

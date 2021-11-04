@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
   public void Kill()
   {
-    Debug.Log("oh no i died");
+    GameObject.Find("Timer").GetComponent<Timer>().lostGame();
   }
 
   public void RequestEffect(PlayerEffect effect)
