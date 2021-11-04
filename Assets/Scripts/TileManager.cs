@@ -6,20 +6,14 @@ public class TileManager : MonoBehaviour
 {
   public List<TileTransformer> availableTransformers;
   private int availableTransformersIterator = 0;
-
-  public Vector2 LevelBottomLeft
-  {
-    get => levelRegion[0];
-    set => levelRegion[0] = value;
-  }
-  public Vector2 LevelTopRight
-  {
-    get => levelRegion[1];
-    set => levelRegion[1] = value;
-  }
-  private Vector2[] levelRegion;
+  public LevelRendering level;
   // Start is called before the first frame update
   void Start()
+  {
+    
+  }
+
+  private void Awake()
   {
     availableTransformers = new List<TileTransformer>();
     availableTransformers.Add(new DeadlyTileTransformer());
@@ -28,7 +22,7 @@ public class TileManager : MonoBehaviour
     availableTransformers.Add(new SlowTileTransformer());
     availableTransformers.Add(new CleanseTileTransformer());
 
-    levelRegion = new Vector2[2];
+    level = GameObject.Find("Level").GetComponent<LevelRendering>();
   }
 
   // Update is called once per frame
@@ -39,8 +33,8 @@ public class TileManager : MonoBehaviour
 
   public void TransformTiles()
   {
-    float pos_x = Random.Range(LevelBottomLeft.x, LevelTopRight.x);
-    float pos_y = Random.Range(LevelBottomLeft.y, LevelTopRight.y);
+    float pos_x = Random.Range(0, level.width);
+    float pos_y = Random.Range(-level.height, 0);
     float size_x = Random.Range(2, 6);
     float size_y = Random.Range(2, 6);
 
