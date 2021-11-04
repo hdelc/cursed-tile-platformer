@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Timer : MonoBehaviour
 
   [SerializeField] Text totalTimeFront;
   [SerializeField] Text totalTimeBack;
+  [SerializeField] Text timeRemainingText;
 
   [SerializeField] Text finalTimeText;
   [SerializeField] GameObject overlay1;
@@ -49,6 +51,8 @@ public class Timer : MonoBehaviour
     totalTimeFront.text = timestamp;
     totalTimeBack.text = timestamp;
     finalTimeText.text = timestamp;
+
+    timeRemainingText.text = ("" + Math.Max(0, Math.Ceiling(timeRemaining))).PadLeft(2, '0');
   }
 
   public void resetCountdown()
