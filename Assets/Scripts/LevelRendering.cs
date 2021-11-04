@@ -6,16 +6,25 @@ using System;
 
 public class LevelRendering : MonoBehaviour
 {
-  [SerializeField] public string levelFileName = "testlevel";
+  // [SerializeField] public string levelFileName = "testlevel";
+  [SerializeField] private TextAsset levelFile;
   private string levelStr;
   private int[][] levelArr;
 
   [SerializeField] public GameObject playerPrefab;
   [SerializeField] public GameObject tempBlockPrefab;
+  // [SerializeField] public GameObject collectiblePrefab;
+  [SerializeField] public GameObject collectibleParent;
 
-  void Start()
+  public int width = 0;
+  public int height = 0;
+
+  void OnEnable()
   {
-    levelStr = File.ReadAllText("./Assets/Scripts/LevelJson/" + levelFileName + ".txt");
+    GameObject player = Instantiate(playerPrefab);
+
+    // levelStr = File.ReadAllText("./Assets/Scripts/LevelJson/" + levelFileName + ".txt");
+    levelStr = levelFile.text;
     string[] temp1 = levelStr.Trim().Split('\n');
     string[][] temp2 = new string[temp1.Length][];
     for (int i = 0; i < temp1.Length; i++)
@@ -35,13 +44,19 @@ public class LevelRendering : MonoBehaviour
         if (levelArr[i][j] == 1)
         {
           Instantiate(tempBlockPrefab, new Vector3(j, -i), Quaternion.Euler(new Vector3(0,0,0)), this.transform);
+          width = j;
+          height = i;
         } else if (levelArr[i][j] == 2)
         {
-          playerPrefab.transform.position = new Vector2(j, -i);
+          player.transform.position = new Vector2(j, -i);
+        } else if (levelArr[i][j] == 3)
+        {
+          GameObject cSpawn = new GameObject("c - " + j + i);
+          cSpawn.transform.parent = collectibleParent.transform;
+          cSpawn.transform.position = new Vector3(j, -i, -2);
         }
       }
     }
-
   }
 
   // Update is called once per frame
