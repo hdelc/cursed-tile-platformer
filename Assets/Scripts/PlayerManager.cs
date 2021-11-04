@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
   {
     get => dashSpeedScalar; set => dashSpeedScalar = value;
   }
-  private float dashSpeedScalar;
+  private float dashSpeedScalar = 1f;
 
   // Start is called before the first frame update
   void Start()
