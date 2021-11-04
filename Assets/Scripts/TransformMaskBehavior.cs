@@ -45,7 +45,6 @@ public class TransformMaskBehavior : MonoBehaviour
       else // Continue transform
       {
         float alpha = 1 - (2*Mathf.Abs(progress - 0.5f));
-        Debug.Log(alpha);
         SpriteRenderer.color = new Color(1, 1, 1, alpha);
         if (progress >= 0.5f && !transformed)
         {
