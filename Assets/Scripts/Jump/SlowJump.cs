@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class SlowJump : MonoBehaviour
 {
-  public float RunSpeed { get => runSpeed; set => runSpeed = value; }
+  public float RunSpeed { get => runSpeed * playerManager.MovementSpeedScalar; set => runSpeed = value; }
   [SerializeField] private float runSpeed = 14f;
 
-  public float HorizontalAcceleration { get => horizontalAcceleration; set => horizontalAcceleration = value; }
+  public float HorizontalAcceleration { get => horizontalAcceleration * playerManager.MovementAccelerationScalar; set => horizontalAcceleration = value; }
   [SerializeField] private float horizontalAcceleration = 70f;
 
   //public float Gravity { get => gravity; set => gravity = value; }
@@ -23,6 +23,7 @@ public class SlowJump : MonoBehaviour
 
   [SerializeField] int dashDuration = 9;
 
+  public float DashSpeed { get => dashSpeed * playerManager.DashSpeedScalar; set => dashSpeed = value; }
   [SerializeField] float dashSpeed = 25f;
 
   // [SerializeField] Vector2 dashColliderSize = new Vector2(0.8f, 0.8f);
@@ -45,9 +46,10 @@ public class SlowJump : MonoBehaviour
   private Vector3 defaultColliderSize;
 
   private SpriteRenderer spriteRenderer;
+  private PlayerManager playerManager;
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
     if(inputManager == null)
     {
@@ -67,6 +69,7 @@ public class SlowJump : MonoBehaviour
     gravity = baseGravity;
 
     spriteRenderer = GetComponent<SpriteRenderer>();
+    playerManager = GetComponent<PlayerManager>();
   }
 
   // Update is called once per frame
@@ -98,7 +101,7 @@ public class SlowJump : MonoBehaviour
       // hitbox.size = dashColliderSize;
       collisionObj.transform.localScale = dashColliderScale * defaultColliderSize;
       newVelocity.y = 0;
-      newVelocity.x = isFacingRight ? dashSpeed : -dashSpeed;
+      newVelocity.x = isFacingRight ? DashSpeed : -DashSpeed;
       if (--tempDashLength <= 0)
       {
         dashState = 2;
@@ -131,7 +134,7 @@ public class SlowJump : MonoBehaviour
         if (jumpState == 0) 
         {
           gravity = jumpGravityScale * baseGravity;
-          newVelocity.y = jumpSpeed;
+          newVelocity.y = jumpSpeed * playerManager.JumpHeightScalar;
           jumpState = 1;
         }
 

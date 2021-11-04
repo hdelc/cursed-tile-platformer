@@ -8,7 +8,7 @@ public class JankJump : MonoBehaviour
   public float RunSpeed { get => runSpeed; set => runSpeed = value; }
   [SerializeField] private float runSpeed = 14f;
 
-  public float HorizontalAcceleration { get => horizontalAcceleration; set => horizontalAcceleration = value; }
+  public float HorizontalAcceleration { get => horizontalAcceleration * playerManager.MovementAccelerationScalar; set => horizontalAcceleration = value; }
   [SerializeField] private float horizontalAcceleration = 70f;
 
   public float Gravity { get => gravity; set => gravity = value; }
@@ -20,6 +20,8 @@ public class JankJump : MonoBehaviour
   [SerializeField] float jumpDecreaseCoefficient = 0.8f;
 
   [SerializeField] int dashDuration = 9;
+
+  public float DashSpeed { get => dashSpeed * playerManager.DashSpeedScalar; set => dashSpeed = value; }
   [SerializeField] float dashSpeed = 25f;
 
   [SerializeField] float dashColliderScale = 0.9f;
@@ -41,9 +43,10 @@ public class JankJump : MonoBehaviour
   private Vector3 defaultColliderSize;
 
   private SpriteRenderer spriteRenderer;
+  private PlayerManager playerManager;
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
     if(inputManager == null)
     {
@@ -61,6 +64,7 @@ public class JankJump : MonoBehaviour
     defaultColliderSize = collisionObj.transform.localScale;
 
     spriteRenderer = GetComponent<SpriteRenderer>();
+    playerManager = GetComponent<PlayerManager>();
   }
 
   // Update is called once per frame
@@ -92,7 +96,7 @@ public class JankJump : MonoBehaviour
       // hitbox.size = dashColliderSize;
       collisionObj.transform.localScale = dashColliderScale * defaultColliderSize;
       newVelocity.y = 0;
-      newVelocity.x = isFacingRight ? dashSpeed : -dashSpeed;
+      newVelocity.x = isFacingRight ? DashSpeed : -DashSpeed;
       if (--tempDashLength <= 0)
       {
         dashState = 2;
@@ -130,7 +134,7 @@ public class JankJump : MonoBehaviour
         {
           //Vector2 newPosition = new Vector2(rb2d.position.x, rb2d.position.y + tempJumpEnergy);
 
-          newVelocity.y = tempJumpEnergy / Time.fixedDeltaTime;
+          newVelocity.y = tempJumpEnergy * playerManager.JumpHeightScalar / Time.fixedDeltaTime;
 
           tempJumpEnergy = Mathf.Max(tempJumpEnergy * jumpDecreaseCoefficient, 0);
           if (tempJumpEnergy < 0.05)
