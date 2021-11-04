@@ -7,7 +7,7 @@ public class TileBehavior : MonoBehaviour
   private GameObject tileCollision;
   private TransformMaskBehavior transformMask;
   public SpriteRenderer SpriteRenderer;
-  public TileTransformer transformer;
+  [SerializeField] public TileTransformer transformer;
 
   public delegate void PlayerContactEventHandler(TileBehavior sender, PlayerContactEventArgs args);
   public event PlayerContactEventHandler PlayerContactEvent;
@@ -15,13 +15,14 @@ public class TileBehavior : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-	  
+    
+
   }
 
   private void Awake()
   {
     transformer = new NeutralTileTransformer();
-	  SpriteRenderer = GetComponent<SpriteRenderer>();
+    SpriteRenderer = GetComponent<SpriteRenderer>();
     foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
     {
       if (child.name == "TileCollision")
@@ -33,6 +34,8 @@ public class TileBehavior : MonoBehaviour
       Debug.LogError($"Tile \"{gameObject.name}\" could not find its TileCollision");
     if(transformMask == null)
       Debug.LogError($"Tile \"{gameObject.name}\" could not find its TransformMask");
+
+    transformer.Transform(this);
   }
 
   // Update is called once per frame
