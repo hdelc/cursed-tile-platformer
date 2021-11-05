@@ -3,7 +3,13 @@ guid: 59a8bc8150cd48c468be5454bab12e1b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - slowJumpSprite: {instanceID: 0}
+  - jankJumpSprite: {instanceID: 0}
+  - consJumpSprite: {instanceID: 0}
+  - jumpSound: {instanceID: 0}
+  - dashSound: {instanceID: 0}
+  - groundSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

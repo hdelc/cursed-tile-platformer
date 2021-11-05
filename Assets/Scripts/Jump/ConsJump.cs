@@ -44,6 +44,10 @@ public class ConsJump : MonoBehaviour
   private Vector3 defaultColliderSize;
 
   private PlayerManager playerManager;
+  
+  private PlayerMovement playerMovement;
+  private AudioSource audio;
+
   void Awake()
   {
     if(inputManager == null)
@@ -62,6 +66,8 @@ public class ConsJump : MonoBehaviour
     defaultColliderSize = collisionObj.transform.localScale;
 
     playerManager = GetComponent<PlayerManager>();
+    playerMovement = GetComponent<PlayerMovement>();
+    audio = GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -118,6 +124,7 @@ public class ConsJump : MonoBehaviour
         if (jumpState == 0) 
         {
           jumpState = 1;
+          audio.PlayOneShot(playerMovement.jumpSound, playerMovement.jumpVol);
         }
 
         if (jumpState == 1)
@@ -167,6 +174,7 @@ public class ConsJump : MonoBehaviour
         if (dashState == 0)
         {
           dashState = 1;
+          audio.PlayOneShot(playerMovement.dashSound, playerMovement.dashVol);
         }
       }
     }

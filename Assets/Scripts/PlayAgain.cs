@@ -8,9 +8,14 @@ public class PlayAgain : MonoBehaviour
   private InputManager inputManager;
   private bool hasBeenPressed = false;
 
+  [SerializeField] AudioClip sfx;
+  [SerializeField] float vol = 0.5f;
+  private AudioSource audio;
+
   void Start()
   {
     inputManager = GameObject.FindObjectOfType<InputManager>();
+    audio = GetComponent<AudioSource>();
   }
 
   void Update()
@@ -27,6 +32,13 @@ public class PlayAgain : MonoBehaviour
 
   public void Play()
   {
+    StartCoroutine("PlayCo");
+  }
+
+  IEnumerator PlayCo()
+  {
+    audio.PlayOneShot(sfx, vol);
+    yield return new WaitForSeconds(0.7f);
     SceneManager.LoadScene("TestScene");
   }
 }
