@@ -189,15 +189,17 @@ public class JankJump : MonoBehaviour
       Vector2 boxcast_position = new Vector2(hitbox.transform.position.x, hitbox.transform.position.y + (hitbox.transform.lossyScale.y / 4));
       Vector2 boxcast_size = new Vector2(hitbox.transform.lossyScale.x * 0.5f, hitbox.transform.lossyScale.y / 2);
       RaycastHit2D boxcast = Physics2D.BoxCast(boxcast_position, boxcast_size, 0, Vector2.up, deltaPosition.y, mask);
-      if (boxcast.collider && rb2d.velocity.y > 0)
+      if (boxcast.collider != null && deltaPosition.y > 0)
       {
         positionCorrection.y = boxcast.distance;
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         jumpState = 2;
       }
+
+      Debug.DrawRay(boxcast_position, Vector3.up * deltaPosition.y, Color.green, Time.fixedDeltaTime);
     }
 
-    rb2d.position += positionCorrection;
+    rb2d.position += positionCorrection / 3;
   }
 
   private void RefreshJump()
