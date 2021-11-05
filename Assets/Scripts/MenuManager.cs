@@ -15,10 +15,17 @@ public class MenuManager : MonoBehaviour
   [SerializeField] private ZoomInOut playZoom;
   [SerializeField] private float playDelay = 0.5f;
 
+  [SerializeField] private AudioClip selectSound;
+  [SerializeField] private AudioClip startSound;
+  [SerializeField] private float volume = 0.5f;
+  private AudioSource audio;
+  private bool isPlayingStart = false;
+
   // Start is called before the first frame update
   void Start()
   {
     inputManager = GetComponent<InputManager>();
+    audio = GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -33,6 +40,7 @@ public class MenuManager : MonoBehaviour
       {
         vClickState = 2;
         menuCol = (menuCol + 1) % 2;
+        audio.PlayOneShot(selectSound, volume);
       }
     } else {
       if (vClickState == 2)
@@ -67,7 +75,11 @@ public class MenuManager : MonoBehaviour
             }
             temp = temp % 3;
           }
-          GlobalData.characterIndex = temp;
+          if (!isPlayingStart)
+          {
+            GlobalData.characterIndex = temp;
+            audio.PlayOneShot(selectSound, volume);
+          }
         }
       } else {
         if (hClickState == 2)
@@ -84,7 +96,6 @@ public class MenuManager : MonoBehaviour
     if (inputManager.Jump /* && menuCol == 1 */)
     {
       playZoom.gameObject.GetComponent<Image>().color = new Color(1f, 0.76f, 0.08f);
-      // PlayGame();
       DelayedPlayGame();
     }
   }
@@ -96,6 +107,11 @@ public class MenuManager : MonoBehaviour
 
   IEnumerator DelayedPlayGameCo()
   {
+    if (!isPlayingStart) 
+    {
+      audio.PlayOneShot(startSound, volume);
+      isPlayingStart = true;
+    }
     yield return new WaitForSeconds(playDelay);
     PlayGame();
   }

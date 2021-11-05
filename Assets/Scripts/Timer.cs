@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.Animations;
 
 public class Timer : MonoBehaviour
 {
@@ -14,14 +15,29 @@ public class Timer : MonoBehaviour
   public float timeRemaining { get { return survivalTime - (totalTime - lastCollectTime); }}
   private float finalTime = 0f;
   public bool hasLost = false;
+  public int collectCount = 0;
 
   [SerializeField] Text totalTimeFront;
   [SerializeField] Text totalTimeBack;
   [SerializeField] Text timeRemainingText;
 
   [SerializeField] Text finalTimeText;
+  [SerializeField] Text finalCountText;
+  [SerializeField] Text finalCharText;
   [SerializeField] GameObject overlay1;
   [SerializeField] GameObject overlay2;
+
+  [SerializeField] AudioClip death;
+  [SerializeField] AudioClip warning;
+  [SerializeField] float volume;
+  AudioSource audio;
+
+  [SerializeField] AnimatorController deathAnim;
+  private PlayerMovement player;
+
+  private bool warning1 = false;
+  private bool warning2 = false;
+  private bool warning3 = false;
 
   private TileManager tileManager;
 
@@ -29,6 +45,9 @@ public class Timer : MonoBehaviour
   {
     overlay1.SetActive(false);
     overlay2.SetActive(false);
+
+    audio = GetComponent<AudioSource>();
+    player = GameObject.FindObjectOfType<PlayerMovement>();
   }
 
   private void Awake()
@@ -50,6 +69,18 @@ public class Timer : MonoBehaviour
     if (timeRemaining < 0)
     {
       lostGame();
+    } else if (timeRemaining < 3 && !warning3)
+    {
+      audio.PlayOneShot(warning, volume);
+      warning3 = true;
+    } else if (timeRemaining < 2 && !warning2)
+    {
+      audio.PlayOneShot(warning, volume);
+      warning2 = true;
+    } else if (timeRemaining < 1 && !warning1)
+    {
+      audio.PlayOneShot(warning, volume);
+      warning1 = true;
     }
 
     float time = totalTime;
@@ -64,7 +95,10 @@ public class Timer : MonoBehaviour
 
     totalTimeFront.text = timestamp;
     totalTimeBack.text = timestamp;
+    
+    finalCountText.text = "" + collectCount;
     finalTimeText.text = timestamp;
+    finalCharText.text = GlobalData.characterName;
 
     timeRemainingText.text = ("" + Math.Max(0, Math.Ceiling(timeRemaining))).PadLeft(2, '0');
   }
@@ -72,6 +106,12 @@ public class Timer : MonoBehaviour
   public void resetCountdown()
   {
     lastCollectTime = totalTime;
+
+    warning1 = false;
+    warning2 = false;
+    warning3 = false;
+
+    collectCount++;
   }
 
   public void lostGame()
@@ -83,14 +123,20 @@ public class Timer : MonoBehaviour
     hasLost = true;
     finalTime = totalTime;
 
+    audio.PlayOneShot(death, volume);
+
+    player.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+    Animator anim = player.gameObject.AddComponent<Animator>();
+    anim.runtimeAnimatorController = deathAnim;
+
     StartCoroutine("delayedOverlay");
   }
 
   private IEnumerator delayedOverlay()
   {
-    yield return new WaitForSeconds(0.8f);
+    yield return new WaitForSeconds(0.5f);
     overlay1.SetActive(true);
-    yield return new WaitForSeconds(0.7f);
+    yield return new WaitForSeconds(0.5f);
     overlay2.SetActive(true);
   }
 }

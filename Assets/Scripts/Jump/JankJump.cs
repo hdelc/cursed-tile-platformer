@@ -45,6 +45,9 @@ public class JankJump : MonoBehaviour
   private SpriteRenderer spriteRenderer;
   private PlayerManager playerManager;
 
+  private PlayerMovement playerMovement;
+  private AudioSource audio;
+
   // Start is called before the first frame update
   void Awake()
   {
@@ -65,6 +68,8 @@ public class JankJump : MonoBehaviour
 
     spriteRenderer = GetComponent<SpriteRenderer>();
     playerManager = GetComponent<PlayerManager>();
+    playerMovement = GetComponent<PlayerMovement>();
+    audio = GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -127,6 +132,7 @@ public class JankJump : MonoBehaviour
       {
         if (jumpState == 0) 
         {
+          audio.PlayOneShot(playerMovement.jumpSound, playerMovement.jumpVol);
           jumpState = 1;
         }
 
@@ -161,6 +167,7 @@ public class JankJump : MonoBehaviour
       {
         if (dashState == 0)
         {
+          audio.PlayOneShot(playerMovement.dashSound, playerMovement.dashVol);
           dashState = 1;
         }
       }

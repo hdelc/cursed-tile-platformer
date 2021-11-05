@@ -48,7 +48,7 @@ public class LevelRendering : MonoBehaviour
           height = i;
         } else if (levelArr[i][j] == 2)
         {
-          player.transform.position = new Vector2(j, -i);
+          player.transform.position = new Vector3(j, -i, -10);
         } else if (levelArr[i][j] == 3)
         {
           GameObject cSpawn = new GameObject("c - " + j + i);

@@ -48,6 +48,9 @@ public class SlowJump : MonoBehaviour
   private SpriteRenderer spriteRenderer;
   private PlayerManager playerManager;
 
+  private PlayerMovement playerMovement;
+  private AudioSource audio;
+
   // Start is called before the first frame update
   void Awake()
   {
@@ -70,6 +73,8 @@ public class SlowJump : MonoBehaviour
 
     spriteRenderer = GetComponent<SpriteRenderer>();
     playerManager = GetComponent<PlayerManager>();
+    playerMovement = GetComponent<PlayerMovement>();
+    audio = GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -133,6 +138,7 @@ public class SlowJump : MonoBehaviour
       {
         if (jumpState == 0) 
         {
+          audio.PlayOneShot(playerMovement.jumpSound, playerMovement.jumpVol);
           gravity = jumpGravityScale * baseGravity;
           newVelocity.y = jumpSpeed * Mathf.Sqrt(playerManager.JumpHeightScalar);
           jumpState = 1;
@@ -164,6 +170,7 @@ public class SlowJump : MonoBehaviour
       {
         if (dashState == 0)
         {
+          audio.PlayOneShot(playerMovement.dashSound, playerMovement.dashVol);
           dashState = 1;
         }
       }

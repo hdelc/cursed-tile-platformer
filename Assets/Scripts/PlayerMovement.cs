@@ -13,6 +13,13 @@ public class PlayerMovement : MonoBehaviour
   private Timer timer;
   private Component cmp = null;
 
+  [SerializeField] public AudioClip jumpSound;
+  [SerializeField] public AudioClip dashSound;
+  // [SerializeField] public AudioClip groundSound;
+  [SerializeField] public float jumpVol;
+  [SerializeField] public float dashVol;
+  // [SerializeField] public float groundVol;
+
   void Awake()
   {
     spriteRenderer = GetComponent<SpriteRenderer>();

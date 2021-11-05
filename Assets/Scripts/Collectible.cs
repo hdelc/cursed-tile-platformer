@@ -11,12 +11,19 @@ public class Collectible : MonoBehaviour
   private bool grabbed = false;
   private Animator anim;
 
+  [SerializeField] AudioClip sfx;
+  [SerializeField] float vol = 0.5f;
+  private AudioSource audio;
+
   // Start is called before the first frame update
   void Start()
   {
+    audio = GetComponent<AudioSource>();
+
     anim = GetComponent<Animator>();
-    int index = (int)Math.Round(UnityEngine.Random.Range(0f, parent.transform.childCount - 1));
-    Debug.Log(index);
+    int index = -1;
+    while (index == -1 || (parent.transform.GetChild(index).position.x - GameObject.FindObjectOfType<PlayerMovement>().transform.position.x <= 1 && parent.transform.GetChild(index).position.y - GameObject.FindObjectOfType<PlayerMovement>().transform.position.y <= 1))
+    index = (int)Math.Round(UnityEngine.Random.Range(0f, parent.transform.childCount - 1));
     transform.position = parent.transform.GetChild(index).position;
   }
 
@@ -27,6 +34,7 @@ public class Collectible : MonoBehaviour
     {
       grabbed = true;
 
+      audio.PlayOneShot(sfx, vol);
       DoAThing();
 
       GameObject newObj = Instantiate(gameObject);
