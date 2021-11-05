@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.Animations;
 
 public class Timer : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class Timer : MonoBehaviour
   [SerializeField] float volume;
   AudioSource audio;
 
-  [SerializeField] AnimatorController deathAnim;
+  [SerializeField] RuntimeAnimatorController deathAnim;
   private PlayerMovement player;
 
   private bool warning1 = false;
